@@ -1,0 +1,187 @@
+
+========================================================
+<small>
+### COURSE NAME: Heterogeneous Data Visual Analytics
+### Professor Georges Grinstein
+### Umass Lowell, Computer Science Department
+</small>
+# Title: Data Mining Using R
+## Presented by
+## Janakiram Sundaraneedi
+## Date: `r format(Sys.Date(), format="%B %d %Y")`
+
+
+Outline
+========================================================
+
+In today's Presenation. 
+- Data Source.
+- What are the properties of DataSet;
+- Data Cleaning and Filtering ;
+- Applying dplyr package for Visulization.
+- Data Visulization(googleVis, rcharts, ggplot, plotly, leaflet packages)
+- What if sample data set is less
+
+
+Downloading the Data and Uploading the Data in to Rstudio
+========================================================
+
+```{r}
+setwd("/Users/janakiramsundaraneedi/Desktop")
+storm_data <- read.csv("repdata-data-StormData.csv")
+```
+
+Downloading the Data and Uploading the Data in to Rstudio
+========================================================
+
+```{r}
+object.size(storm_data)
+```
+
+
+
+Attributes of DataSet
+========================================================
+
+```{r}
+names(storm_data)
+```
+Dimensionality and STR of DataSet
+========================================================
+
+```{r}
+dim(storm_data)
+str(storm_data)
+```
+
+Str of DataSet
+========================================================
+
+```{r}
+str(storm_data)
+```
+
+Attributes of DataSet
+========================================================
+```{r}
+names(storm_data)
+```
+
+Head and Tail of DataSet
+========================================================
+```{r}
+head(storm_data)
+tail(storm_data)
+```
+
+Preparing the Data filtering
+========================================================
+
+```{r}
+library(dplyr)
+storm_data_needed <- storm_data[, c(7,8,23,24,25,27)]
+```
+
+Checking the Filtered Data
+========================================================
+
+```{r}
+dim(storm_data_needed)
+names(storm_data_needed)
+str(storm_data_needed)
+```
+
+Head of DataSet
+========================================================
+```{r}
+head(storm_data_needed[1:5])
+tail(storm_data_needed[1:3])
+```
+
+Summary of filtered Data
+========================================================
+
+```{r}
+summary(storm_data_needed)
+```
+
+
+Checking for Not Available Values
+========================================================
+```{r}
+y <- c(1,2,3,NA)
+sum(is.na(y))
+sum(is.na(storm_data$FATALITIES))
+sum(is.na(storm_data$CROPDMG))
+sum(is.na(storm_data$PROPDMG))
+sum(is.na(storm_data$INJURIES))
+```
+
+Using Plotly Visulization
+========================================================
+-library(dplyr)
+-library(plotly)
+-storm_data_needed<-data.frame(storm_data_needed)
+-plot_ly(by_state_fatal, x = ~STATE, y = ~FATALITIES, type = 'bar', mode = 'markers', 
+-   marker = list(size=10, opacity = 0.5, color = 'rgb(255, 65, 65)')) %>%
+-   layout(title = 'USA STATE WISE FATALITIES',
+-   xaxis = list(showgrid = TRUE),
+-   yaxis = list(showgrid = TRUE))
+output:http://rpubs.com/janakiram/f-1
+            
+Using log function to Attribute.
+========================================================
+-plot_ly(by_state_fatal, x = ~STATE, y = ~log(FATALITIES), type = 'bar' 
+-    marker = list(size=10, opacity = 0.5, color = 'rgb(255, 65, 65)')) %>%
+-    layout(title = 'USA STATE WISE FATALITIES',
+-    xaxis = list(showgrid = TRUE),
+-    yaxis = list(showgrid = TRUE))
+            
+output:http://rpubs.com/janakiram/logf-1
+
+Max and Min Crop damage by State.
+========================================================
+by_state_cropdmg <- storm_data_needed %>% group_by(STATE) %>% summarize(CROPDMG = sum(CROPDMG))
+-plot_ly(by_state_cropdmg, x = ~STATE, y = ~CROPDMG, color = I("dark green")) 
+
+-output:http://rpubs.com/janakiram/f-2
+
+Max and Min Property damage by State.
+========================================================
+-by_state_propdmg <- storm_data_needed %>% group_by(STATE) %>% summarize(PROPDMG = sum(PROPDMG))
+-plot_ly(by_state_cropdmg, x = ~STATE, y = ~PROPDMG, color = I("red"))
+
+-output:http://rpubs.com/janakiram/f-3
+
+
+Further Improvements
+========================================================
+
+#                    ???????
+
+# What if sample data set is less
+========================================================
+## -Bootstrap Resampling
+
+Resources Used
+========================================================
+-ggplot
+-rcharts
+-googVis
+-leaflet
+-Slidiy
+-rpresenter
+
+Any Questions ?
+========================================================
+
+Thank You
+========================================================
+
+
+
+
+
+
+
+
